@@ -1,0 +1,5 @@
+E:\Coder house\MiPrimeraApi\ProyectoCoderHouse\obj\Debug\net6.0\SistemaGestion.csproj.AssemblyReference.cache
+E:\Coder house\MiPrimeraApi\ProyectoCoderHouse\obj\Debug\net6.0\SistemaGestion.GeneratedMSBuildEditorConfig.editorconfig
+E:\Coder house\MiPrimeraApi\ProyectoCoderHouse\obj\Debug\net6.0\SistemaGestion.AssemblyInfoInputs.cache
+E:\Coder house\MiPrimeraApi\ProyectoCoderHouse\obj\Debug\net6.0\SistemaGestion.AssemblyInfo.cs
+E:\Coder house\MiPrimeraApi\ProyectoCoderHouse\obj\Debug\net6.0\SistemaGestion.csproj.CoreCompileInputs.cache
