@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
-using ProyectoCoderHouse.Modelos;
+using SistemaGestion.Modelos;
 
 namespace SistemaGestion.Handlers
 {
@@ -44,35 +44,8 @@ namespace SistemaGestion.Handlers
             return usuarios;
         }
 
-        public void Login (int id, string Contraseña)
-        {
-            bool loginSuccesful = false;
-            using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
-            {
-                string Verificar = "SELECT Contraseña WHERE Id = @IdUsuario";
+        
 
-                SqlParameter parametroUsuarioId = new SqlParameter();
-                parametroUsuarioId.ParameterName = "idUsuario";
-                parametroUsuarioId.SqlDbType = System.Data.SqlDbType.BigInt;
-                parametroUsuarioId.Value = id;
-
-                SqlParameter parametroContraseña = new SqlParameter();
-                parametroUsuarioId.ParameterName = "Contraseña";
-                parametroUsuarioId.SqlDbType = System.Data.SqlDbType.VarChar;
-                parametroUsuarioId.Value = Contraseña;
-
-                sqlConnection.Open();
-
-                { 
-                    if ((Contraseña.Equals(Verificar)))
-                        {
-                            loginSuccesful = true;
-                        }
-                }
-            }
-            //Sé que una función void no puede retornar nada, sin embargo no sabía cómo declararla 
-            return loginSuccesful;
-        }
     }
 }
 

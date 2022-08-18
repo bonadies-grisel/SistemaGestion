@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProyectoCoderHouse.Modelos
+namespace SistemaGestion.Modelos
 {
     public class ProductoVendido
     {
@@ -12,6 +12,6 @@ namespace ProyectoCoderHouse.Modelos
         public int Stock { get; set; }
         public int IdProducto { get; set; }
         public int IdVenta { get; set; }
-        
+
     }
 }
