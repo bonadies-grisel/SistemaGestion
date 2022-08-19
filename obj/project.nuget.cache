@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "F69K4eU9/cpQHin4bdLMfI9zKwQFZbTuigM0qayZMei7KQxHr6jIzTGTYTIoTnFmmfjwbB4xsCEt6sBLPIbmgg==",
+  "dgSpecHash": "OGwCYNzJK0zbUVnmiGjR/zItot8TuCF615cI/TEaWa1P5hWX1WkkuZ55z27D71BsrzjkhHXQZ/rDGnMyHQ7AhQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Moral\\source\\repos\\SistemaGestion\\SistemaGestion\\SistemaGestion.csproj",
+  "projectFilePath": "C:\\Users\\Moral\\OneDrive\\Documents\\CoderHouse\\SistemaGestion\\SistemaGestion.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Moral\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
     "C:\\Users\\Moral\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",

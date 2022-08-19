@@ -31,3 +31,13 @@ C:\Users\Moral\source\repos\SistemaGestion\SistemaGestion\bin\Debug\net6.0\runti
 C:\Users\Moral\source\repos\SistemaGestion\SistemaGestion\bin\Debug\net6.0\runtimes\win-x86\native\sni.dll
 C:\Users\Moral\source\repos\SistemaGestion\SistemaGestion\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\Moral\source\repos\SistemaGestion\SistemaGestion\bin\Debug\net6.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\Moral\OneDrive\Documents\CoderHouse\SistemaGestion\obj\Debug\net6.0\SistemaGestion.csproj.AssemblyReference.cache
+C:\Users\Moral\OneDrive\Documents\CoderHouse\SistemaGestion\obj\Debug\net6.0\SistemaGestion.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Moral\OneDrive\Documents\CoderHouse\SistemaGestion\obj\Debug\net6.0\SistemaGestion.AssemblyInfoInputs.cache
+C:\Users\Moral\OneDrive\Documents\CoderHouse\SistemaGestion\obj\Debug\net6.0\SistemaGestion.AssemblyInfo.cs
+C:\Users\Moral\OneDrive\Documents\CoderHouse\SistemaGestion\obj\Debug\net6.0\SistemaGestion.csproj.CoreCompileInputs.cache
+C:\Users\Moral\OneDrive\Documents\CoderHouse\SistemaGestion\obj\Debug\net6.0\SistemaGestion.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Moral\OneDrive\Documents\CoderHouse\SistemaGestion\obj\Debug\net6.0\SistemaGestion.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Moral\OneDrive\Documents\CoderHouse\SistemaGestion\obj\Debug\net6.0\SistemaGestion.dll
+C:\Users\Moral\OneDrive\Documents\CoderHouse\SistemaGestion\obj\Debug\net6.0\refint\SistemaGestion.dll
+C:\Users\Moral\OneDrive\Documents\CoderHouse\SistemaGestion\obj\Debug\net6.0\SistemaGestion.pdb

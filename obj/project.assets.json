@@ -655,11 +655,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Moral\\source\\repos\\SistemaGestion\\SistemaGestion\\SistemaGestion.csproj",
+      "projectUniqueName": "C:\\Users\\Moral\\OneDrive\\Documents\\CoderHouse\\SistemaGestion\\SistemaGestion.csproj",
       "projectName": "SistemaGestion",
-      "projectPath": "C:\\Users\\Moral\\source\\repos\\SistemaGestion\\SistemaGestion\\SistemaGestion.csproj",
+      "projectPath": "C:\\Users\\Moral\\OneDrive\\Documents\\CoderHouse\\SistemaGestion\\SistemaGestion.csproj",
       "packagesPath": "C:\\Users\\Moral\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Moral\\source\\repos\\SistemaGestion\\SistemaGestion\\obj\\",
+      "outputPath": "C:\\Users\\Moral\\OneDrive\\Documents\\CoderHouse\\SistemaGestion\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
