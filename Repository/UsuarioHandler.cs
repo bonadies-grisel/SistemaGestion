@@ -48,6 +48,74 @@ namespace SistemaGestion.Repository
             return usuarios;
         }
 
+
+        public static bool Login(string Pass, string UName)
+        {
+            //Bolean para aceptar el login
+            bool loginSuccesful = false;
+
+            //Creo la conexión con la base de datos
+            using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
+
+            {
+                //Creo los parámetros
+
+                //Contraseña
+                SqlParameter parametroContraseña = new SqlParameter("Pass", SqlDbType.VarChar) { Value = Pass };
+
+
+                //Usuario
+                SqlParameter parametroNombreUsuario = new SqlParameter("Uname", SqlDbType.VarChar) { Value = UName };
+                
+
+                string QueryUName = "SELECT * FROM Usuario WHERE @Uname = NombreUsuario";
+                string QueryPass = "SELECT * FROM Usuario WHERE @Pass = Contraseña";
+
+                sqlConnection.Open();
+
+                using (SqlCommand sqlCommandUName = new SqlCommand(QueryUName, sqlConnection))
+
+                  
+                {
+                    if (sqlCommandUName.Parameters.Contains(UName))
+
+                    {
+                        using (SqlCommand sqlCommandPass = new SqlCommand(QueryPass, sqlConnection))
+                        
+                        {
+                            if(sqlCommandPass.Parameters.Contains(Pass))
+
+                            {
+                                loginSuccesful = true;
+
+                            }
+
+                            else
+
+                            {
+                                loginSuccesful = false; 
+                            }
+                        }
+                    }
+
+                    else
+                    
+                    {
+                        loginSuccesful = false;
+                    }
+
+
+                }
+
+                sqlConnection.Close();
+
+            }
+
+            return loginSuccesful;
+        }
+
+
+
         public static bool DeleteUsuario(int id)
         {
             bool resultado = false;
