@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SistemaGestion.Handlers
+namespace SistemaGestion.Repository
 {
 
-    public abstract class DbHandler
+    public static class DbHandler
     {
         public const string ConnectionString =
         "Server = DESKTOP-1L9TTLS;Database=SistemaGestion;Trusted_Connection=True";

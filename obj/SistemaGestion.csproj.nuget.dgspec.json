@@ -1,23 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Coder house\\MiPrimeraApi\\ProyectoCoderHouse\\SistemaGestion.csproj": {}
+    "C:\\Users\\Moral\\source\\repos\\SistemaGestion\\SistemaGestion\\SistemaGestion.csproj": {}
   },
   "projects": {
-    "E:\\Coder house\\MiPrimeraApi\\ProyectoCoderHouse\\SistemaGestion.csproj": {
+    "C:\\Users\\Moral\\source\\repos\\SistemaGestion\\SistemaGestion\\SistemaGestion.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Coder house\\MiPrimeraApi\\ProyectoCoderHouse\\SistemaGestion.csproj",
+        "projectUniqueName": "C:\\Users\\Moral\\source\\repos\\SistemaGestion\\SistemaGestion\\SistemaGestion.csproj",
         "projectName": "SistemaGestion",
-        "projectPath": "E:\\Coder house\\MiPrimeraApi\\ProyectoCoderHouse\\SistemaGestion.csproj",
-        "packagesPath": "C:\\Users\\Katy\\.nuget\\packages\\",
-        "outputPath": "E:\\Coder house\\MiPrimeraApi\\ProyectoCoderHouse\\obj\\",
+        "projectPath": "C:\\Users\\Moral\\source\\repos\\SistemaGestion\\SistemaGestion\\SistemaGestion.csproj",
+        "packagesPath": "C:\\Users\\Moral\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Moral\\source\\repos\\SistemaGestion\\SistemaGestion\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Katy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Moral\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -44,6 +45,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.2.3, )"
+            },
             "System.Data.SqlClient": {
               "target": "Package",
               "version": "[4.8.3, )"
@@ -60,11 +65,14 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.301\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }

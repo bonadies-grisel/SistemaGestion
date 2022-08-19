@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using SistemaGestion.Modelos;
 
-namespace SistemaGestion.Handlers
+namespace SistemaGestion.Repository
 {
-    public class VentaHandler : DbHandler
+    public static class VentaHandler 
     {
-        public List<Venta> GetVentas()
+        public const string ConnectionString = "Server = DESKTOP-1L9TTLS;Database=SistemaGestion;Trusted_Connection=True";
+        public static List<Venta> GetVentas()
 
         {
             List<Venta> Ventas = new List<Venta>();

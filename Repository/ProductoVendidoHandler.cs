@@ -6,11 +6,12 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using SistemaGestion.Modelos;
 
-namespace SistemaGestion.Handlers
+namespace SistemaGestion.Repository
 {
-    public class ProductoVendidoHandler : DbHandler
+    public static class ProductoVendidoHandler 
     {
-        public List<ProductoVendido> GetProductoVendidos()
+        public const string ConnectionString = "Server = DESKTOP-1L9TTLS;Database=SistemaGestion;Trusted_Connection=True";
+        public static List<ProductoVendido> GetProductoVendidos()
 
         {
             List<ProductoVendido> ProductosVendidos = new List<ProductoVendido>();

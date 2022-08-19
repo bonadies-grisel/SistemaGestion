@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using SistemaGestion.Modelos;
 
-namespace SistemaGestion.Handlers
+namespace SistemaGestion.Repository
 {
-    public class ProductoHandler : DbHandler
+    public static class ProductoHandler 
+        
     {
-        public List<Producto> GetProductos()
+        public const string ConnectionString = "Server = DESKTOP-1L9TTLS;Database=SistemaGestion;Trusted_Connection=True";
+        public static List<Producto> GetProductos()
         {
             List<Producto> productos = new List<Producto>();
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
