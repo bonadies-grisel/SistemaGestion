@@ -47,7 +47,7 @@ namespace SistemaGestion.Controllers
             });
         }
 
-        [HttpPost(Name ="CreateUser")]
+        [HttpPost(Name = "CreateUser")]
         public bool CreateUser([FromBody] PostUsuario usuario)
         {
             try
@@ -59,8 +59,8 @@ namespace SistemaGestion.Controllers
                     NombreUsuario = usuario.NombreUsuario,
                     Contraseña = usuario.Contraseña,
                     Mail = usuario.Mail,
-                    
-                    
+
+
                 });
             }
             catch (Exception ex)
@@ -68,6 +68,27 @@ namespace SistemaGestion.Controllers
                 Console.WriteLine(ex.Message);
                 return false;
             }
+
+
+         }
+
+
+        [HttpGet(Name = "LogIn")]
+        public bool LogIn([FromBody] PutUsuario NombreUsuario, PutUsuario Contraseña, bool loginSuccessful)
+            {
+               loginSuccessful = UsuarioHandler.Login(loginSuccessful);
+
+                try
+                {
+                    return UsuarioHandler.Login;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return false;
+                }
+            }
+
         }
     }
 }

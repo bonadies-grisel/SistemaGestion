@@ -49,7 +49,7 @@ namespace SistemaGestion.Repository
         }
 
 
-        public static bool Login(string Pass, string UName)
+        public static bool Login(string UName, string Pass)
         {
             //Bolean para aceptar el login
             bool loginSuccesful = false;
@@ -60,13 +60,15 @@ namespace SistemaGestion.Repository
             {
                 //Creo los parámetros
 
+                //Usuario
+                SqlParameter parametroNombreUsuario = new SqlParameter("Uname", SqlDbType.VarChar) { Value = UName };
+
+
                 //Contraseña
                 SqlParameter parametroContraseña = new SqlParameter("Pass", SqlDbType.VarChar) { Value = Pass };
 
 
-                //Usuario
-                SqlParameter parametroNombreUsuario = new SqlParameter("Uname", SqlDbType.VarChar) { Value = UName };
-                
+               
 
                 string QueryUName = "SELECT * FROM Usuario WHERE @Uname = NombreUsuario";
                 string QueryPass = "SELECT * FROM Usuario WHERE @Pass = Contraseña";
