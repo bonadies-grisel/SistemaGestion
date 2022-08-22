@@ -49,10 +49,14 @@ namespace SistemaGestion.Repository
         }
 
 
-        public static bool Login(string UName, string Pass)
+        //Login
+        public static Usuario Login(string UName, string Pass)
         {
             //Bolean para aceptar el login
             bool loginSuccesful = false;
+
+            //Creo el usuario para devolver
+            Usuario user = new Usuario();
 
             //Creo la conexión con la base de datos
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
@@ -62,30 +66,24 @@ namespace SistemaGestion.Repository
 
                 //Usuario
                 SqlParameter parametroNombreUsuario = new SqlParameter("Uname", SqlDbType.VarChar) { Value = UName };
-
+                string QueryUName = "SELECT * FROM Usuario WHERE @Uname = NombreUsuario";
 
                 //Contraseña
                 SqlParameter parametroContraseña = new SqlParameter("Pass", SqlDbType.VarChar) { Value = Pass };
-
-
-               
-
-                string QueryUName = "SELECT * FROM Usuario WHERE @Uname = NombreUsuario";
-                string QueryPass = "SELECT * FROM Usuario WHERE @Pass = Contraseña";
-
-                sqlConnection.Open();
+                string QueryPass = "SELECT * FROM Usuario WHERE @Uname= NombreUsuario AND @Pass = Contraseña";
 
                 using (SqlCommand sqlCommandUName = new SqlCommand(QueryUName, sqlConnection))
 
-                  
                 {
+                    sqlConnection.Open();
+
                     if (sqlCommandUName.Parameters.Contains(UName))
 
                     {
                         using (SqlCommand sqlCommandPass = new SqlCommand(QueryPass, sqlConnection))
-                        
+
                         {
-                            if(sqlCommandPass.Parameters.Contains(Pass))
+                            if (sqlCommandPass.Parameters.Contains(Pass))
 
                             {
                                 loginSuccesful = true;
@@ -95,29 +93,62 @@ namespace SistemaGestion.Repository
                             else
 
                             {
-                                loginSuccesful = false; 
+                                loginSuccesful = false;
                             }
                         }
                     }
 
                     else
-                    
+
                     {
                         loginSuccesful = false;
                     }
 
 
-                }
+                    using (SqlCommand sqlCommand = new SqlCommand(QueryPass, sqlConnection))
 
-                sqlConnection.Close();
+                    {
+                        using (SqlDataReader reader = sqlCommand.ExecuteReader())
+                        
+                        {
+                            if (reader.HasRows)
+                            {
+                                while (reader.Read())
+                                {
+                                    user.Id = Convert.ToInt32(reader["Id"]);
+                                    user.Nombre = (reader["Nombre"]).ToString();
+                                    user.Apellido = (reader["Apellido"]).ToString();
+                                    user.NombreUsuario = (reader["NombreUsuario"]).ToString();
+                                    user.Contraseña = (reader["Contraseña"]).ToString();
+                                    user.Mail = (reader["Mail"]).ToString();
+                                }
+                            }
+                        }
+
+                    }
+
+                    sqlConnection.Close();
+                }
 
             }
 
-            return loginSuccesful;
+            if (!loginSuccesful)
+            
+            {
+                return new Usuario();
+            }
+            
+            else
+            
+            {
+                return user;
+            }
+
+
         }
 
 
-
+        //Eliminar usuario
         public static bool DeleteUsuario(int id)
         {
             bool resultado = false;
@@ -146,6 +177,7 @@ namespace SistemaGestion.Repository
             return resultado;
         }
 
+        //Crear nuevo usuario
         public static bool CreateUser(Usuario usuario)
         {
             bool resultado = false;
@@ -192,7 +224,8 @@ namespace SistemaGestion.Repository
         }
 
 
-        public static bool ModificarNombreDeUsuario(Usuario usuario)
+        //Cambiar nombre 
+        public static bool ModificarNombre(Usuario usuario)
         {
             bool resultado = false;
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))

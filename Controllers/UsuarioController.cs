@@ -40,7 +40,7 @@ namespace SistemaGestion.Controllers
         [HttpPut(Name = "ModifyUser")]
         public bool ModifyUser([FromBody] PutUsuario usuario)
         {
-            return UsuarioHandler.ModificarNombreDeUsuario(new Usuario
+            return UsuarioHandler.ModificarNombre(new Usuario
             {
                 Id = usuario.Id,
                 Nombre = usuario.Nombre
@@ -71,24 +71,6 @@ namespace SistemaGestion.Controllers
 
 
          }
-
-
-        [HttpGet(Name = "LogIn")]
-        public bool LogIn([FromBody] PutUsuario NombreUsuario, PutUsuario Contraseña, bool loginSuccessful)
-            {
-               loginSuccessful = UsuarioHandler.Login(loginSuccessful);
-
-                try
-                {
-                    return UsuarioHandler.Login;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    return false;
-                }
-            }
-
-        }
+        
     }
 }
