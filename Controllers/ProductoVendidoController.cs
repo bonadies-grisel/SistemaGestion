@@ -11,7 +11,7 @@ namespace SistemaGestion.Controllers
     public class ProductoVendidoController : ControllerBase
     {
         [HttpGet(Name = "GetProductoVendido")]
-        public List<ProductoVendido> GetProductoVendidos([FromBody] PutProductoVendido productoVendido)
+        public List<ProductoVendido> GetProductoVendidos()
         {
             return ProductoVendidoHandler.GetProductoVendidos();
         }

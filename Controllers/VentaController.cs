@@ -15,7 +15,7 @@ namespace SistemaGestion.Controllers
 
 
         [HttpGet(Name = "GetVentas")]
-        public List<Venta> GetVentas([FromBody] PutVenta venta)
+        public List<Venta> GetVentas()
         {
             return VentaHandler.GetVentas();
         }
@@ -24,24 +24,24 @@ namespace SistemaGestion.Controllers
 
         //Crear venta
         [HttpPost(Name = "CreateVenta")]
-        public bool CreateVenta([FromBody] List<Producto> productos, PostVenta venta, PostProductoVendido productovendido)
+        public bool CreateVenta([FromBody] PostTest postTest)
         {
             try
             {
                 var PostVenta = new Venta()
 
                 {
-                    Comentarios = venta.Comentarios
+                    Comentarios = postTest.PostVenta.Comentarios
 
                 };
                 var PostProductoVendido = new ProductoVendido()
                 {
-                    Stock = productovendido.Stock,
-                    IdProducto = productovendido.IdProducto,
-                    IdVenta = productovendido.IdVenta,
+                    Stock = postTest.PostVendido.Stock,
+                    IdProducto = postTest.PostVendido.IdProducto,
+                    IdVenta = postTest.PostVendido.IdVenta,
                 };
 
-                return VentaHandler.CreateSale(productos, PostVenta, PostProductoVendido); 
+                return VentaHandler.CreateSale(postTest.productos, PostVenta, PostProductoVendido); 
 
 
             }

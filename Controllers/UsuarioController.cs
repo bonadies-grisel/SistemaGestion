@@ -17,7 +17,7 @@ namespace SistemaGestion.Controllers
         //Esto es un endpoint
         //Arriba del método, para avisarle al controller que es un GET (trae cosas)
         [HttpGet(Name ="GetUsers")]
-        public List<Usuario> GetUsers([FromBody] PutUsuario usuario)
+        public List<Usuario> GetUsers()
         {
             return UsuarioHandler.GetUsuarios();
         }

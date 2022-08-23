@@ -58,17 +58,20 @@ namespace SistemaGestion.Repository
                 
                 string queryInsertProductoVendido = "INSERT INTO [SistemaGestion].[dbo].[ProductoVendido]" +
                     "(Stock, IdProducto, IdVenta) VALUES" +
-                    "(@StockParameter, @IdProductoParameter, @IdVentaParameter)";
+                    "(@StockParameter, @IdProductoParameter, @IdVentaP)";
 
                 string queryUpdate = "UPDATE [SistemaGestion].[dbo].[Producto]" +
-                                     "SET Stock = Stock - @StockProductParameter" +
+                                     "SET Stock = Stock - @StockP" +
                                      "WHERE id = @IdProducto";
 
 
                 SqlParameter ComentariosParameter = new SqlParameter("comentariosParameter", SqlDbType.VarChar) { Value = venta.Comentarios};
                 SqlParameter StockParameter = new SqlParameter("StockParameter", SqlDbType.Int) { Value = productovendido.Stock};
+                SqlParameter StockP = new SqlParameter("StockP", SqlDbType.Int) { Value = productovendido.Stock};
                 SqlParameter IdProductoParameter = new SqlParameter("IdProductoParameter", SqlDbType.Int) { Value = productovendido.IdProducto };
-                SqlParameter IdVentaParameter = new SqlParameter("IdVentaParameter", SqlDbType.Int) { Value = productovendido.IdVenta };
+                SqlParameter IdVentaParameter = new SqlParameter("IdVentaParameter", SqlDbType.Int) { Value = venta.Id };
+                SqlParameter IdProducto = new SqlParameter("IdProducto", SqlDbType.Int) { Value = productovendido.IdProducto };
+                SqlParameter IdVentaP = new SqlParameter ("IdVentaP", SqlDbType.Int) { Value = productovendido.IdVenta };
 
                 sqlConnection.Open();
 
@@ -76,48 +79,59 @@ namespace SistemaGestion.Repository
 
                 {
                     sqlCommand.Parameters.Add(ComentariosParameter);
+                    sqlCommand.Parameters.Add(IdVentaParameter);
+
                     int numberOfRows = sqlCommand.ExecuteNonQuery();
-                    
+
                     if (numberOfRows > 0)
-                         {
-                        resultado = true;
+                    {
+
+                        foreach (Producto producto in productos)
+
+                        {
+
+                            using (SqlCommand sqlCommand2 = new SqlCommand(queryInsertProductoVendido, sqlConnection))
+                            
+                            {
+
+                                sqlCommand2.Parameters.Add(StockParameter);
+                                sqlCommand2.Parameters.Add(IdProductoParameter);
+                                sqlCommand2.Parameters.Add(IdVentaP);
+
+                                int numberOfRows2 = sqlCommand.ExecuteNonQuery();
+
+                                if (numberOfRows2 > 0)
+                                {
+                                    
+                                    using (SqlCommand sqlCommand3 = new SqlCommand(queryUpdate, sqlConnection))
+
+                                    {
+                                        sqlCommand3.Parameters.Add(StockP);
+                                        sqlCommand3.Parameters.Add(IdProducto);
+
+                                        int numberOfRows3 = sqlCommand.ExecuteNonQuery();
+
+                                        if (numberOfRows3 > 0)
+                                        {
+                                            resultado = true;
+                                        }
+                                        else
+                                        {
+                                            resultado = false;
+                                        }
+
+                                    }
+                                }
+                            }
+
                         }
 
-                    foreach (Producto producto in productos)
-                        
-                            {
-                                 using (SqlCommand sqlCommand2 = new SqlCommand(queryInsertProductoVendido, sqlConnection))
-                                {
-                                  sqlCommand2.Parameters.Add(StockParameter);
-                                  sqlCommand2.Parameters.Add(IdProductoParameter);
-                                  sqlCommand2.Parameters.Add(IdVentaParameter);
-                                    
-                                        if (numberOfRows > 0)
-                                        {
-                                             resultado = true;
-                                             using (SqlCommand sqlCommand3 = new SqlCommand(queryUpdate, sqlConnection))
-                                                
-                                                {
-                                                    sqlCommand3.Parameters.Add(IdProductoParameter);
-                                                    sqlCommand3.Parameters.Add(StockParameter);
-                                                    int numberOfRows2 = sqlCommand.ExecuteNonQuery();
-
-                                                    if (numberOfRows2 > 0)
-                                                    {
-                                                        resultado = true;
-                                                    }
-                                                    else
-                                                    {
-                                                        resultado = false;
-                                                    }
-
-                                }
-                                                }
-                                        }
-                                  
-                            }   
-
-                 }
+                    }
+                    else
+                    {
+                        resultado = false;
+                    }
+                }
 
                 sqlConnection.Close();
 
