@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using SistemaGestion.Modelos;
+using System.Data;
 
 namespace SistemaGestion.Repository
 {
@@ -43,6 +44,45 @@ namespace SistemaGestion.Repository
             }
             return ProductosVendidos;
         }
+
+        public static bool CrearProductoVendido(ProductoVendido productoVendido)
+        {
+            bool resultado = false;
+            using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
+            {
+                string queryInsert = "INSERT INTO [SistemaGestion].[dbo].[ProductoVendido] " +
+                    "(Stock, IdProducto, IdVenta) VALUES " +
+                    "(@StockParameter, @IdProductoParameter, @IdVentaParameter);";
+
+                SqlParameter StockParameter = new SqlParameter("StockParameter", SqlDbType.VarChar) { Value = productoVendido.Stock };
+                SqlParameter IdProductoParameter = new SqlParameter("IdProductoParameter", SqlDbType.VarChar) { Value = productoVendido.IdProducto };
+                SqlParameter IdVentaParameter = new SqlParameter("IdVentaParameter", SqlDbType.VarChar) { Value = productoVendido.IdVenta };
+
+
+                sqlConnection.Open();
+
+                using (SqlCommand sqlCommand = new SqlCommand(queryInsert, sqlConnection))
+                {
+                    sqlCommand.Parameters.Add(StockParameter);
+                    sqlCommand.Parameters.Add(IdProductoParameter);
+                    sqlCommand.Parameters.Add(IdVentaParameter);
+
+
+                    int numberOfRows = sqlCommand.ExecuteNonQuery();
+
+                    if (numberOfRows > 0)
+                    {
+                        resultado = true;
+                    }
+                }
+
+                sqlConnection.Close();
+            }
+
+            return resultado;
+        }
+
+
 
     }
 }

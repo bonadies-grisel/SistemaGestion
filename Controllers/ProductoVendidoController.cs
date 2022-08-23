@@ -11,9 +11,34 @@ namespace SistemaGestion.Controllers
     public class ProductoVendidoController : ControllerBase
     {
         [HttpGet(Name = "GetProductoVendido")]
-        public List<ProductoVendido> GetProductoVendidos()
+        public List<ProductoVendido> GetProductoVendidos([FromBody] PutProductoVendido productoVendido)
         {
             return ProductoVendidoHandler.GetProductoVendidos();
         }
+
+
+        //Crear producto
+        [HttpPost(Name = "CreateProductoVendido")]
+        public bool CreateProductoVendido([FromBody] PostProductoVendido productoVendido)
+        {
+            try
+            {
+                return ProductoVendidoHandler.CrearProductoVendido(new ProductoVendido
+                {
+                    Stock = productoVendido.Stock,
+                    IdProducto = productoVendido.IdProducto,
+                    IdVenta = productoVendido.IdVenta,
+
+
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
     }
-}
+} 
+
+

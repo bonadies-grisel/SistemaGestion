@@ -16,7 +16,7 @@ namespace SistemaGestion.Controllers
 
         //Obtener Productos
         [HttpGet(Name = "GetProducto")]
-        public List<Producto> GetProducto()
+        public List<Producto> GetProducto([FromBody] PutProducto producto)
         {
             return ProductoHandler.GetProductos();
         }
