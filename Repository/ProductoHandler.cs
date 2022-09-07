@@ -10,10 +10,10 @@ using System.Data;
 
 namespace SistemaGestion.Repository
 {
-    public static class ProductoHandler
+    public static class ProductoHandler 
 
     {
-        public const string ConnectionString = "Server = DESKTOP-1L9TTLS;Database=SistemaGestion;Trusted_Connection=True";
+        public const string ConnectionString = DbHandler.ConnectionString;
 
         //Obtener todos los productos
         public static List<Producto> GetProductos()

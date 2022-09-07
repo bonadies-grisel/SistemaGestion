@@ -10,7 +10,7 @@ namespace SistemaGestion.Controllers
     [Route("[controller]")]
     public class ProductoVendidoController : ControllerBase
     {
-        [HttpGet(Name = "GetProductoVendido")]
+        [HttpGet("GetProductoVendido")]
         public List<ProductoVendido> GetProductoVendidos()
         {
             return ProductoVendidoHandler.GetProductoVendidos();
@@ -18,7 +18,7 @@ namespace SistemaGestion.Controllers
 
 
         //Crear producto
-        [HttpPost(Name = "CreateProductoVendido")]
+        [HttpPost("CreateProductoVendido")]
         public bool CreateProductoVendido([FromBody] PostProductoVendido productoVendido)
         {
             try

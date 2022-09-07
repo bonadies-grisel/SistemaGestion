@@ -16,14 +16,24 @@ namespace SistemaGestion.Controllers
 
         //Esto es un endpoint
         //Arriba del método, para avisarle al controller que es un GET (trae cosas)
-        [HttpGet(Name ="GetUsers")]
+
+
+        [HttpGet("Login")]
+        public  Usuario Login(string UName, string Pass)
+
+        {
+            return UsuarioHandler.Login(UName, Pass);
+        }
+
+
+        [HttpGet("GetUsers")]
         public List<Usuario> GetUsers()
         {
             return UsuarioHandler.GetUsuarios();
         }
 
 
-        [HttpDelete(Name = "DeleteUsers")]
+        [HttpDelete("DeleteUsers")]
         public bool DeleteUser([FromBody] int id)
         {
             try
@@ -37,7 +47,7 @@ namespace SistemaGestion.Controllers
             }
         }
 
-        [HttpPut(Name = "ModifyUser")]
+        [HttpPut("ModifyUser")]
         public bool ModifyUser([FromBody] PutUsuario usuario)
         {
             return UsuarioHandler.ModificarNombre(new Usuario
@@ -47,20 +57,18 @@ namespace SistemaGestion.Controllers
             });
         }
 
-        [HttpPost(Name = "CreateUser")]
+        [HttpPost("CreateUser")]
         public bool CreateUser([FromBody] PostUsuario usuario)
         {
             try
             {
                 return UsuarioHandler.CreateUser(new Usuario
                 {
-                    Nombre = usuario.Nombre,
                     Apellido = usuario.Apellido,
-                    NombreUsuario = usuario.NombreUsuario,
                     Contraseña = usuario.Contraseña,
                     Mail = usuario.Mail,
-
-
+                    Nombre = usuario.Nombre,
+                    NombreUsuario = usuario.NombreUsuario
                 });
             }
             catch (Exception ex)
@@ -71,6 +79,9 @@ namespace SistemaGestion.Controllers
 
 
          }
+
         
+       
+
     }
 }

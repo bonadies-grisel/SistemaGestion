@@ -15,7 +15,7 @@ namespace SistemaGestion.Controllers
     {
 
         //Obtener Productos
-        [HttpGet(Name = "GetProducto")]
+        [HttpGet("GetProducto")]
         public List<Producto> GetProducto()
         {
             return ProductoHandler.GetProductos();
@@ -24,7 +24,7 @@ namespace SistemaGestion.Controllers
 
 
         //Crear producto
-        [HttpPost(Name = "CreateProduct")]
+        [HttpPost("CreateProduct")]
         public bool CreateProducto([FromBody] PostProducto producto)
         {
             try
@@ -48,7 +48,7 @@ namespace SistemaGestion.Controllers
         }
 
         //Borrar producto
-        [HttpDelete(Name = "DeleteProduct")]
+        [HttpDelete("DeleteProduct")]
         public bool DeleteProduct([FromBody] int id)
         {
             try
@@ -64,7 +64,7 @@ namespace SistemaGestion.Controllers
         }
 
         //Modificar Producto
-        [HttpPut(Name = "ModifyProducto")]
+        [HttpPut("ModifyProducto")]
         public bool ModifyUser([FromBody] PutProducto producto)
         {
             return ProductoHandler.ModificarProducto(new Producto

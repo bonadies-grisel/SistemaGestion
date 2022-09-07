@@ -12,8 +12,7 @@ namespace SistemaGestion.Repository
 {
     public static class VentaHandler
     {
-        public const string ConnectionString = "Server = DESKTOP-1L9TTLS;Database=SistemaGestion;Trusted_Connection=True";
-
+        public const string ConnectionString = DbHandler.ConnectionString;
         //Obtener todaas las ventas
         public static List<Venta> GetVentas()
         {
@@ -55,7 +54,7 @@ namespace SistemaGestion.Repository
                 string queryInsert = "INSERT INTO [SistemaGestion].[dbo].[Venta] " +
                     "(Comentarios) VALUES " +
                     "(@ComentariosParameter)";
-                
+
                 string queryInsertProductoVendido = "INSERT INTO [SistemaGestion].[dbo].[ProductoVendido]" +
                     "(Stock, IdProducto, IdVenta) VALUES" +
                     "(@StockParameter, @IdProductoParameter, @IdVentaP)";
@@ -65,13 +64,13 @@ namespace SistemaGestion.Repository
                                      "WHERE id = @IdProducto";
 
 
-                SqlParameter ComentariosParameter = new SqlParameter("comentariosParameter", SqlDbType.VarChar) { Value = venta.Comentarios};
-                SqlParameter StockParameter = new SqlParameter("StockParameter", SqlDbType.Int) { Value = productovendido.Stock};
-                SqlParameter StockP = new SqlParameter("StockP", SqlDbType.Int) { Value = productovendido.Stock};
+                SqlParameter ComentariosParameter = new SqlParameter("comentariosParameter", SqlDbType.VarChar) { Value = venta.Comentarios };
+                SqlParameter StockParameter = new SqlParameter("StockParameter", SqlDbType.Int) { Value = productovendido.Stock };
+                SqlParameter StockP = new SqlParameter("StockP", SqlDbType.Int) { Value = productovendido.Stock };
                 SqlParameter IdProductoParameter = new SqlParameter("IdProductoParameter", SqlDbType.Int) { Value = productovendido.IdProducto };
                 SqlParameter IdVentaParameter = new SqlParameter("IdVentaParameter", SqlDbType.Int) { Value = venta.Id };
                 SqlParameter IdProducto = new SqlParameter("IdProducto", SqlDbType.Int) { Value = productovendido.IdProducto };
-                SqlParameter IdVentaP = new SqlParameter ("IdVentaP", SqlDbType.Int) { Value = productovendido.IdVenta };
+                SqlParameter IdVentaP = new SqlParameter("IdVentaP", SqlDbType.Int) { Value = productovendido.IdVenta };
 
                 sqlConnection.Open();
 
@@ -91,7 +90,7 @@ namespace SistemaGestion.Repository
                         {
 
                             using (SqlCommand sqlCommand2 = new SqlCommand(queryInsertProductoVendido, sqlConnection))
-                            
+
                             {
 
                                 sqlCommand2.Parameters.Add(StockParameter);
@@ -102,7 +101,7 @@ namespace SistemaGestion.Repository
 
                                 if (numberOfRows2 > 0)
                                 {
-                                    
+
                                     using (SqlCommand sqlCommand3 = new SqlCommand(queryUpdate, sqlConnection))
 
                                     {
@@ -140,22 +139,66 @@ namespace SistemaGestion.Repository
             return resultado;
         }
 
+
+        //public static bool DeleteSale(int IdVenta)
+
+        //{
+        //    bool delete = false;
+
+        //    List<ProductoVendido> ProductoVendidoLista = new List<ProductoVendido>();
+
+        //    using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
+        //    {
+
+        //        //Esto se puede simplificar en un futuro haciendo la misma función en ProductoVendido, llamarla y darle como parámetro el IdVenta
+        //        using (SqlCommand sqlCommand = new SqlCommand(@"SELECT * FROM [SistemaGestion].[dbo].[Venta]""WHERE Id = @IdVenta", sqlConnection))
+        //        {
+        //            sqlConnection.Open();
+
+        //            using (SqlDataReader dataReader = sqlCommand.ExecuteReader())
+        //            {
+        //                if (dataReader.HasRows)
+        //                {
+        //                    while (dataReader.Read())
+        //                    {
+        //                        ProductoVendido productoVendido = new ProductoVendido();
+
+
+        //                        productoVendido.Id = Convert.ToInt32(dataReader["Id"]);
+        //                        productoVendido.Stock = Convert.ToInt32(dataReader["Stock"]);
+        //                        productoVendido.IdProducto = Convert.ToInt32(dataReader["IdProducto"]);
+        //                        productoVendido.IdVenta = Convert.ToInt32(dataReader["IdVenta"]);
+        //                        ProductoVendidoLista.Add(productoVendido);
+        //                    }
+        //                }
+
+                        
+        //            }
+
+        //            foreach (var productoLista in ProductoVendidoLista)
+
+        //            {
+        //                SqlParameter usernameParameter = new SqlParameter("ProductoLista", System.Data.SqlDbType.VarChar) { Value = productoLista.IdProducto };
+
+        //                using (SqlCommand sqlCommand2 = new SqlCommand(@"SELECT * FROM [SistemaGestion].[dbo].[Producto]""WHERE Id = @ProductoLista", sqlConnection))
+
+        //                {
+        //                    productoLista.Stock = Producto
+
+        //                }
+
+        //            }
+
+        //            sqlConnection.Open();
+
+                    
+        //        }
+
+        //    }
+
+
+        //    return delete;
+        //}
     }
 }
 
-
-
-
-//using (SqlCommand sqlCommand = new SqlCommand(queryInsert, sqlConnection))
-//{
-//    sqlCommand.Parameters.Add(ComentariosParameter);
-
-//    int numberOfRows = sqlCommand.ExecuteNonQuery(); 
-
-//    if (numberOfRows > 0)
-//    {
-//        resultado = true;
-//    }
-//}
-
-//sqlConnection.Close();

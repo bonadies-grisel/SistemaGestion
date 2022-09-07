@@ -11,15 +11,14 @@ namespace SistemaGestion.Repository
 {
     public static class UsuarioHandler
     {
-        public const string ConnectionString = "Server = DESKTOP-1L9TTLS;Database=SistemaGestion;Trusted_Connection=True";
-
+        public const string ConnectionString = DbHandler.ConnectionString;
         //Obtener todos los usuarios
         public static List<Usuario> GetUsuarios()
         {
             List<Usuario> usuarios = new List<Usuario>();
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
-                using (SqlCommand sqlCommand = new SqlCommand("SELECT * FROM Usuario", sqlConnection))
+                using (SqlCommand sqlCommand = new SqlCommand("SELECT * FROM [SistemaGestion].[dbo].[Usuario] ", sqlConnection))
                 {
                     sqlConnection.Open();
 
@@ -35,6 +34,7 @@ namespace SistemaGestion.Repository
                                 usuario.Apellido = dataReader["Apellido"].ToString();
                                 usuario.NombreUsuario = dataReader["NombreUsuario"].ToString();
                                 usuario.Mail = dataReader["Mail"].ToString();
+                                // ¿Debería traer la contraseña? 
                                 usuario.Contraseña = dataReader["Contraseña"].ToString();
                                 usuarios.Add(usuario);
                             }
@@ -48,9 +48,46 @@ namespace SistemaGestion.Repository
             return usuarios;
         }
 
+        //Traer usuario por ID
+        public static Usuario GeUserById(string username)
+        {
+            Usuario usuario = new Usuario();
+
+            string querySelect = "SELECT * FROM Usuario WHERE NombreUsuario = @username";
+
+            using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
+            {
+                sqlConnection.Open();
+                using (SqlCommand sqlCommand = new SqlCommand(querySelect, sqlConnection))
+                {
+                    SqlParameter usernameParameter = new SqlParameter("username", System.Data.SqlDbType.VarChar) { Value = username };
+
+                    sqlCommand.Parameters.Add(usernameParameter);
+
+                    using (SqlDataReader dataReader = sqlCommand.ExecuteReader())
+                    {
+                        if (dataReader.HasRows)
+                        {
+                            while (dataReader.Read())
+                            {
+                                usuario.Id = Convert.ToInt32(dataReader["Id"]);
+                                usuario.Nombre = dataReader["Nombre"].ToString();
+                                usuario.Apellido = dataReader["Apellido"].ToString();
+                                usuario.NombreUsuario = dataReader["NombreUsuario"].ToString();
+                                usuario.Contraseña = dataReader["Contraseña"].ToString();
+                                usuario.Mail = dataReader["Mail"].ToString();
+                            }
+                        }
+                    }
+                }
+                sqlConnection.Close();
+            }
+            return usuario;
+        }
+
 
         //Login
-        public static Usuario Login(string UName, string Pass)
+        public static Usuario Login (string UName, string Pass)
         {
             //Bolean para aceptar el login
             bool loginSuccesful = false;
@@ -65,71 +102,54 @@ namespace SistemaGestion.Repository
                 //Creo los parámetros
 
                 //Usuario
-                SqlParameter parametroNombreUsuario = new SqlParameter("Uname", SqlDbType.VarChar) { Value = UName };
-                string QueryUName = "SELECT * FROM Usuario WHERE @Uname = NombreUsuario";
+
+                SqlParameter parametroNombreUsuario = new("UName", SqlDbType.VarChar) { Value = UName };
 
                 //Contraseña
-                SqlParameter parametroContraseña = new SqlParameter("Pass", SqlDbType.VarChar) { Value = Pass };
-                string QueryPass = "SELECT * FROM Usuario WHERE @Uname= NombreUsuario AND @Pass = Contraseña";
+                SqlParameter parametroContraseña = new SqlParameter("Pass", SqlDbType.VarChar) { Value = Pass } ;
 
-                using (SqlCommand sqlCommandUName = new SqlCommand(QueryUName, sqlConnection))
+                string QueryPass = "SELECT * FROM [SistemaGestion].[dbo].[Usuario] WHERE  NombreUsuario = @UName AND Contraseña = @Pass";
 
-                {
-                    sqlConnection.Open();
+                sqlConnection.Open();
 
-                    if (sqlCommandUName.Parameters.Contains(UName))
-
-                    {
-                        using (SqlCommand sqlCommandPass = new SqlCommand(QueryPass, sqlConnection))
+                   using (SqlCommand sqlCommand = new SqlCommand(QueryPass, sqlConnection))
 
                         {
-                            if (sqlCommandPass.Parameters.Contains(Pass))
+                            sqlCommand.Parameters.Add(parametroContraseña);
+                            sqlCommand.Parameters.Add(parametroNombreUsuario);
 
-                            {
-                                loginSuccesful = true;
+                          
+                         using (SqlDataReader reader = sqlCommand.ExecuteReader())
+                          { 
+                                if (reader.HasRows)
 
-                            }
-
-                            else
-
-                            {
-                                loginSuccesful = false;
-                            }
-                        }
-                    }
-
-                    else
-
-                    {
-                        loginSuccesful = false;
-                    }
-
-
-                    using (SqlCommand sqlCommand = new SqlCommand(QueryPass, sqlConnection))
-
-                    {
-                        using (SqlDataReader reader = sqlCommand.ExecuteReader())
-                        
-                        {
-                            if (reader.HasRows)
-                            {
-                                while (reader.Read())
                                 {
-                                    user.Id = Convert.ToInt32(reader["Id"]);
-                                    user.Nombre = (reader["Nombre"]).ToString();
-                                    user.Apellido = (reader["Apellido"]).ToString();
-                                    user.NombreUsuario = (reader["NombreUsuario"]).ToString();
-                                    user.Contraseña = (reader["Contraseña"]).ToString();
-                                    user.Mail = (reader["Mail"]).ToString();
-                                }
-                            }
-                        }
+                                    loginSuccesful = true;
 
+                                    
+                                            while (reader.Read())
+                                            {
+                                                user.Id = Convert.ToInt32(reader["Id"]);
+                                                user.Nombre = (reader["Nombre"]).ToString();
+                                                user.Apellido = (reader["Apellido"]).ToString();
+                                                user.NombreUsuario = (reader["NombreUsuario"]).ToString();
+                                                user.Contraseña = (reader["Contraseña"]).ToString();
+                                                user.Mail = (reader["Mail"]).ToString();
+                                            }
+                                        
+                                    
+                                }
+
+                                else
+
+                                {
+                                    loginSuccesful = false;
+                                }
+                          }
                     }
 
-                    sqlConnection.Close();
-                }
 
+                sqlConnection.Close();
             }
 
             if (!loginSuccesful)
@@ -154,7 +174,7 @@ namespace SistemaGestion.Repository
             bool resultado = false;
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
             {
-                string queryDelete = "DELETE FROM Usuario WHERE Id = @id";
+                string queryDelete = "DELETE FROM [SistemaGestion].[dbo].[Usuario]  WHERE Id = @id";
 
                 SqlParameter idParameter = new SqlParameter("id", System.Data.SqlDbType.BigInt);
                 idParameter.Value = id;
@@ -180,9 +200,8 @@ namespace SistemaGestion.Repository
         //Crear nuevo usuario
         public static bool CreateUser(Usuario usuario)
         {
-            bool resultado = false;
+            bool create = false;
             using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
-
 
             {
 
@@ -193,6 +212,7 @@ namespace SistemaGestion.Repository
 
 
                 //Creo los parámetros que utilizaré
+                
                 SqlParameter NameParameter = new SqlParameter("NameParameter", SqlDbType.VarChar) { Value = usuario.Nombre };
                 SqlParameter FirstNameParameter = new SqlParameter("FirstNameParameter", SqlDbType.VarChar) { Value = usuario.Apellido };
                 SqlParameter UserNameParameter = new SqlParameter("UserNameParameter", SqlDbType.VarChar) { Value = usuario.NombreUsuario };
@@ -203,24 +223,25 @@ namespace SistemaGestion.Repository
 
                 using (SqlCommand sqlCommand = new SqlCommand(queryInsert, sqlConnection))
                 {
+                    
                     sqlCommand.Parameters.Add(NameParameter);
                     sqlCommand.Parameters.Add(FirstNameParameter);
                     sqlCommand.Parameters.Add(UserNameParameter);
                     sqlCommand.Parameters.Add(PassParameter);
                     sqlCommand.Parameters.Add(MailParameter);
 
-                    int numberOfRows = sqlCommand.ExecuteNonQuery(); 
+                    int numberOfRows = sqlCommand.ExecuteNonQuery();
 
                     if (numberOfRows > 0)
                     {
-                        resultado = true;
+                        create = true;
                     }
                 }
 
                 sqlConnection.Close();
             }
 
-            return resultado;
+            return create;
         }
 
 

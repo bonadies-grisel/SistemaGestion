@@ -14,7 +14,7 @@ namespace SistemaGestion.Controllers
 
 
 
-        [HttpGet(Name = "GetVentas")]
+        [HttpGet( "GetVentas")]
         public List<Venta> GetVentas()
         {
             return VentaHandler.GetVentas();
@@ -23,7 +23,7 @@ namespace SistemaGestion.Controllers
 
 
         //Crear venta
-        [HttpPost(Name = "CreateVenta")]
+        [HttpPost("CreateVenta")]
         public bool CreateVenta([FromBody] PostTest postTest)
         {
             try
@@ -54,7 +54,25 @@ namespace SistemaGestion.Controllers
         }
 
 
+        ////Eliminar venta
+        //[HttpDelete("DeleteVenta")]
+        //public bool DeleteSale([FromBody] int id)
+
+        //{
+        //    try
+        //    {
+        //        VentaHandler.DeleteSale(id);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine(ex.Message);
+        //        return false;
+        //    }
+
+        //}
+
+    }
 
 
     }
-}
+

@@ -11,7 +11,7 @@ namespace SistemaGestion.Repository
 {
     public static class ProductoVendidoHandler 
     {
-        public const string ConnectionString = "Server = DESKTOP-1L9TTLS;Database=SistemaGestion;Trusted_Connection=True";
+        public const string ConnectionString = DbHandler.ConnectionString;
         public static List<ProductoVendido> GetProductoVendidos()
 
         {
@@ -82,7 +82,79 @@ namespace SistemaGestion.Repository
             return resultado;
         }
 
+        //Obtener productos por Id de venta (Servirá para eliminar ventas)
+        public static List<ProductoVendido> GetProductoVendidoByIdVenta(int id)
+        {
+            List<ProductoVendido> ProductosVendidos = new List<ProductoVendido>();
+            string SelectQuery = @"SELECT * FROM[SistemaGestion].[dbo].[ProductoVendido]""WHERE IdVenta = @IdVentaParameter";
 
+            using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
+            {
+
+
+                using (SqlCommand sqlCommand = new SqlCommand(SelectQuery, sqlConnection))
+                {
+
+                    SqlParameter IdVentaParameter = new SqlParameter("IdVentaParameter", SqlDbType.Int) { Value = id };
+                    
+
+                    sqlConnection.Open();
+
+                    using (SqlDataReader dataReader = sqlCommand.ExecuteReader())
+                    {
+                        sqlCommand.Parameters.Add(IdVentaParameter);
+                        
+                        if (dataReader.HasRows)
+                        {
+                            while (dataReader.Read())
+                            {
+                                ProductoVendido ProductoVendido = new ProductoVendido();
+
+                                ProductoVendido.Id = Convert.ToInt32(dataReader["Id"]);
+                                ProductoVendido.Stock = Convert.ToInt32(dataReader["Stock"]);
+                                ProductoVendido.IdProducto = Convert.ToInt32(dataReader["IdProducto"]);
+                                ProductoVendido.IdVenta = Convert.ToInt32(dataReader["Idventa"]);
+
+                                ProductosVendidos.Add(ProductoVendido);
+                            }
+                        }
+                    }
+                    sqlConnection.Close();
+                }
+            }
+            return ProductosVendidos;
+        }
+
+        //Eliminar productos por id de venta
+        public static bool DeleteProductoVendidoByVentaId(int id)
+        {
+            bool Delete = false;
+            string queryDelete = @"DELETE FROM [SistemaGestion].[dbo].[ProductoVendido]""WHERE IdVenta = @idventa";
+            SqlParameter IdVentaParameter = new SqlParameter("IdVentaParameter", SqlDbType.Int) { Value = id };
+
+            using (SqlConnection sqlConnection = new SqlConnection(ConnectionString))
+            
+            {
+                sqlConnection.Open();
+
+
+                using (SqlCommand sqlCommand = new SqlCommand(queryDelete, sqlConnection))
+                
+                { 
+                    sqlCommand.Parameters.Add(IdVentaParameter);
+                    int numberOfRows = sqlCommand.ExecuteNonQuery();
+
+                    if (numberOfRows > 0)
+                    {
+                        Delete = true;
+                    }
+                }
+
+
+            }
+
+            return Delete;
+        }
 
     }
 }
